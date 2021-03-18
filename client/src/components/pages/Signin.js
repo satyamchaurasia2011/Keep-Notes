@@ -1,13 +1,15 @@
 import React, {useState, useContext} from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import M from 'materialize-css';
-import { UserContext } from '../../App';
+import {saveUser} from '../../features/userSlice'
+import { useDispatch } from 'react-redux';
+
 const Signin = () => {
-   const {state, dispatch} = useContext(UserContext)
    const history = useHistory();
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [visibile, setVisibile] = useState(false);
+   const dispatch = useDispatch()
    const postData = () => {
       if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
          M.toast({html : "Invalid email!", classes:"#d32f2f red darken-2"})
@@ -30,7 +32,7 @@ const Signin = () => {
          else{
             localStorage.setItem("jwt", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
-            dispatch({type : "USER", payload : data.user})
+            dispatch(saveUser(data.user))
             M.toast({html : "Successfully Signed in", classes:"#66bb6a green lighten-1"})
             history.push('/');
          }

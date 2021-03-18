@@ -1,21 +1,20 @@
-import React, { useEffect, createContext, useReducer, useContext } from "react";
+import React, { useEffect} from "react";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
 import Header from "./components/pages/Header";
 import Footer from "./components/pages/Footer";
 import './App.css';
 import Home from './components/pages/Home';
-import {reducer, initialState} from './components/reducers/UserReducer';
 import Signup from "./components/pages/Signup";
 import Signin from './components/pages/Signin'
-export const UserContext = createContext()
- 
+import { useDispatch } from "react-redux";
+import { saveUser } from "./features/userSlice";
 const Routing = () => {
-    const history = useHistory();
-    const {state, dispatch} = useContext(UserContext)
+    const history = useHistory()
+    const dispatch = useDispatch()
     useEffect(() => {
       const user = JSON.parse(localStorage.getItem("user"))
       if(user){
-        dispatch({type : "USER", payload:user}) 
+        dispatch(saveUser(user)) 
       } else{
         history.push('/signin')
       }
@@ -29,9 +28,8 @@ const Routing = () => {
     )
   }
   const App = () => {
-    const [state, dispatch] = useReducer(reducer, initialState)
+    
   return (
-      <UserContext.Provider value = {{state, dispatch}}>
       <BrowserRouter>
       <Header />
     
@@ -39,7 +37,6 @@ const Routing = () => {
 
       <Footer />
       </BrowserRouter>
-      </UserContext.Provider>
    
   );
 }

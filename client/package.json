@@ -1,7 +1,7 @@
 {
   "name": "keeper-app-part-1-starting",
   "version": "1.0.0",
-  "private" : "true",
+  "private": "true",
   "description": "",
   "keywords": [],
   "main": "src/index.js",
@@ -9,10 +9,12 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@reduxjs/toolkit": "^1.5.0",
     "express": "^4.17.1",
     "materialize-css": "^1.0.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",
+    "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.2.0"
   },
